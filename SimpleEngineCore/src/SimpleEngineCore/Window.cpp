@@ -1,6 +1,7 @@
 #include "SimpleEngineCore/Window.hpp"
 #include "SimpleEngineCore/Log.hpp"
 #include "SimpleEngineCore/Rendering/OpenGL/ShaderProgram.hpp"
+#include "SimpleEngineCore/Rendering/OpenGL/VertexBuffer.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -44,6 +45,8 @@ namespace SimpleEngine {
         "}";
 
     std::unique_ptr<ShaderProgram> p_shader_program;
+    std::unique_ptr<VertexBuffer> p_points_vbo;
+    std::unique_ptr<VertexBuffer> p_colors_vbo;
     GLuint vao;
 
 	Window::Window(std::string title, unsigned int width, unsigned int height)
@@ -139,10 +142,8 @@ namespace SimpleEngine {
             return false;
         }
 
-        GLuint points_vbo = 0;
-        glGenBuffers(1, &points_vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+        p_points_vbo = std::make_unique<VertexBuffer>(points, sizeof(points));
+        p_colors_vbo = std::make_unique<VertexBuffer>(colors, sizeof(colors));
 
         GLuint colors_vbo = 0;
         glGenBuffers(1, &colors_vbo);
@@ -153,11 +154,11 @@ namespace SimpleEngine {
         glBindVertexArray(vao);
 
         glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
+        p_points_vbo->bind();
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
         glEnableVertexAttribArray(1);
-        glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
+        p_colors_vbo->bind();
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
         return 0;
