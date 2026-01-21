@@ -111,16 +111,22 @@ namespace SimpleEngine {
 				Input::PressKey(event.key_code);
 			});
 
-		m_event_dispatcher.add_event_listener<EventKeyReleased>(
-			[&](EventKeyReleased& event)
+		m_event_dispatcher.add_event_listener<EventMouseButtonPressed>(
+			[&](EventMouseButtonPressed& event)
 			{
-				if (event.key_code <= KeyCode::KEY_Z)
-				{
-					LOG_INFO("[Key released] {0}", static_cast<char>(event.key_code));
-				}
-
-				Input::ReleaseKey(event.key_code);
+				LOG_INFO("[Mouse button  pressed] {0}, at ({1}, {2})", static_cast<size_t>(event.mouse_button), event.x_pos, event.y_pos);
+				Input::PressMouseButton(event.mouse_button);
+				on_mouse_button_event(event.mouse_button, event.x_pos, event.y_pos, true);
 			});
+
+		m_event_dispatcher.add_event_listener<EventMouseButtonReleased>(
+			[&](EventMouseButtonReleased& event)
+			{
+				LOG_INFO("[Mouse button  released] {0}, at ({1}, {2})", static_cast<size_t>(event.mouse_button), event.x_pos, event.y_pos);
+				Input::ReleaseMouseButton(event.mouse_button);
+				on_mouse_button_event(event.mouse_button, event.x_pos, event.y_pos, false);
+			});
+
 
 		m_pWindow->set_event_callback(
 			[&](BaseEvent& event)
@@ -219,5 +225,10 @@ namespace SimpleEngine {
 		m_pWindow = nullptr;
 
         return 0;
+	}
+
+	glm::vec2 Application::get_current_cursor_position() const
+	{
+		return m_pWindow->get_current_cursor_position();
 	}
 }
