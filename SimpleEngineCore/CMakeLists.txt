@@ -11,20 +11,24 @@ set(ENGINE_PUBLIC_INCLUDES
 
 set(ENGINE_PRIVATE_INCLUDES
 	src/SimpleEngineCore/Window.hpp
+	src/SimpleEngineCore/Modules/UIModule.hpp
 	src/SimpleEngineCore/Rendering/OpenGL/ShaderProgram.hpp
 	src/SimpleEngineCore/Rendering/OpenGL/VertexBuffer.hpp
 	src/SimpleEngineCore/Rendering/OpenGL/VertexArray.hpp
 	src/SimpleEngineCore/Rendering/OpenGL/IndexBuffer.hpp
+	src/SimpleEngineCore/Rendering/OpenGL/Renderer_OpenGL.hpp
 )
 
 set(ENGINE_PRIVATE_SOURCES
 	src/SimpleEngineCore/Application.cpp
 	src/SimpleEngineCore/Window.cpp
+	src/SimpleEngineCore/Modules/UIModule.cpp
 	src/SimpleEngineCore/Camera.cpp
 	src/SimpleEngineCore/Rendering/OpenGL/ShaderProgram.cpp
 	src/SimpleEngineCore/Rendering/OpenGL/VertexBuffer.cpp
 	src/SimpleEngineCore/Rendering/OpenGL/VertexArray.cpp
 	src/SimpleEngineCore/Rendering/OpenGL/IndexBuffer.cpp
+	src/SimpleEngineCore/Rendering/OpenGL/Renderer_OpenGL.cpp
 )
 
 set(ENGINE_ALL_SOURCES STATIC
