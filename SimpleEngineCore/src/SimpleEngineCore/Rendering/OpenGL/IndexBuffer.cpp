@@ -1,7 +1,5 @@
 #include "IndexBuffer.hpp"
 
-#include "SimpleEngineCore/Log.hpp"
-
 #include <glad/glad.h>
 
 namespace SimpleEngine {
@@ -15,12 +13,11 @@ namespace SimpleEngine {
 			case VertexBuffer::EUsage::Stream:  return GL_STREAM_DRAW;
 		}
 
-		LOG_ERROR("Unknown VertexBuffer usage");
 		return GL_STREAM_DRAW;
 	}
 
 	IndexBuffer::IndexBuffer(const void* data, const size_t count, const VertexBuffer::EUsage usage)
-		: m_count(std::move(count))
+		: m_count(count)
 	{
 		glGenBuffers(1, &m_id);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
