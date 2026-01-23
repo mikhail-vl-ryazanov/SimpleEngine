@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.2.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.12)
 
 set(ENGINE_PROJECT_NAME SimpleEngineCore)
 
@@ -14,11 +14,12 @@ set(ENGINE_PUBLIC_INCLUDES
 set(ENGINE_PRIVATE_INCLUDES
 	src/SimpleEngineCore/Window.hpp
 	src/SimpleEngineCore/Modules/UIModule.hpp
+	src/SimpleEngineCore/Rendering/OpenGL/Renderer_OpenGL.hpp
 	src/SimpleEngineCore/Rendering/OpenGL/ShaderProgram.hpp
 	src/SimpleEngineCore/Rendering/OpenGL/VertexBuffer.hpp
 	src/SimpleEngineCore/Rendering/OpenGL/VertexArray.hpp
 	src/SimpleEngineCore/Rendering/OpenGL/IndexBuffer.hpp
-	src/SimpleEngineCore/Rendering/OpenGL/Renderer_OpenGL.hpp
+	src/SimpleEngineCore/Rendering/OpenGL/Texture2D.hpp
 )
 
 set(ENGINE_PRIVATE_SOURCES
@@ -27,14 +28,15 @@ set(ENGINE_PRIVATE_SOURCES
 	src/SimpleEngineCore/Input.cpp
 	src/SimpleEngineCore/Modules/UIModule.cpp
 	src/SimpleEngineCore/Camera.cpp
+	src/SimpleEngineCore/Rendering/OpenGL/Renderer_OpenGL.cpp
 	src/SimpleEngineCore/Rendering/OpenGL/ShaderProgram.cpp
 	src/SimpleEngineCore/Rendering/OpenGL/VertexBuffer.cpp
 	src/SimpleEngineCore/Rendering/OpenGL/VertexArray.cpp
 	src/SimpleEngineCore/Rendering/OpenGL/IndexBuffer.cpp
-	src/SimpleEngineCore/Rendering/OpenGL/Renderer_OpenGL.cpp
+	src/SimpleEngineCore/Rendering/OpenGL/Texture2D.cpp
 )
 
-set(ENGINE_ALL_SOURCES STATIC
+set(ENGINE_ALL_SOURCES
 	${ENGINE_PUBLIC_INCLUDES}
 	${ENGINE_PRIVATE_INCLUDES}
 	${ENGINE_PRIVATE_SOURCES}
@@ -47,6 +49,9 @@ add_library(${ENGINE_PROJECT_NAME} STATIC
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 	${ENGINE_ALL_SOURCES}
 )
+
+
+
 
 target_include_directories(${ENGINE_PROJECT_NAME} PUBLIC includes)
 target_include_directories(${ENGINE_PROJECT_NAME} PRIVATE src)

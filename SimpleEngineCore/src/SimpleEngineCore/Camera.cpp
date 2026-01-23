@@ -21,6 +21,7 @@ namespace SimpleEngine {
 		if (m_update_view_matrix)
 		{
 			update_view_matrix();
+			m_update_view_matrix = false;
 		}
 
 		return m_view_matrix;
@@ -65,7 +66,7 @@ namespace SimpleEngine {
 		{
 			float r = 0.1f;
 			float t = 0.1f;
-			float f = 10;
+			float f = 100;
 			float n = 0.1f;
 			m_projection_matrix = glm::mat4(
 				n / r,	0,		0,						 0,
