@@ -22,15 +22,24 @@ namespace SimpleEngine {
 		void set_rotation(const glm::vec3& rotation);
 		void set_position_rotation(const glm::vec3& position, const glm::vec3& rotation);
 		void set_projection_mode(const ProjectionMode projection_mode);
+		void set_far_clip_plane(const float far);
+		void set_near_clip_plane(const float near);
+		void set_viewport_size(const float width, const float height);
+		void set_field_of_view(const float fov);
+
 		glm::mat4& get_view_matrix();
 		glm::mat4& get_projection_matrix() { return m_projection_matrix; }
+
+		const float get_far_clip_plane() const { return m_far_clip_plane; }
+		const float get_near_clip_plane() const { return m_near_clip_plane; }
+		const float get_field_of_view() const { return m_field_of_view; }
 
 		void move_forward(const float delta);
 		void move_right(const float delta);
 		void move_up(const float delta);
 
-		const glm::vec3& get_camera_position() const { return m_position; }
-		const glm::vec3& get_camera_rotation() const { return m_rotation; }
+		const glm::vec3& get_position() const { return m_position; }
+		const glm::vec3& get_rotation() const { return m_rotation; }
 
 		// movement delta.x - forward, movement delta.y - right, movement delta.z - up
 		// movement delta.x - roll, movement delta.y - pitch, movement delta.z - yaw
@@ -43,6 +52,12 @@ namespace SimpleEngine {
 		glm::vec3 m_position;
 		glm::vec3 m_rotation; // X - Roll, Y - Pitch, Z - Yaw
 		ProjectionMode m_projection_mode;
+
+		float m_far_clip_plane{ 100.f };
+		float m_near_clip_plane{ 0.1f };
+		float m_viewport_width{ 800.f };
+		float m_viewport_height{ 600.f };
+		float m_field_of_view{ 60.f };
 
 		glm::vec3 m_direction;
 		glm::vec3 m_right;
